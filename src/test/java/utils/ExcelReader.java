@@ -18,7 +18,7 @@ public class ExcelReader {
     static Sheet sheet;
 
 
-    //opening the file
+    //opening the excel file
     public static void openExcel(String filePath) {
         try {
             FileInputStream fis=new FileInputStream(filePath);
