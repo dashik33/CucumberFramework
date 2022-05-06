@@ -6,6 +6,7 @@ Feature: US-12345 - Search an employee in HRMS
     * user clicks on PIM button
     * user navigates to employee list page
 
+
   Scenario: Search an employee by ID
     * user enters valid employee ID
     * user clicks on search button

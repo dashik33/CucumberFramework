@@ -27,10 +27,14 @@ Feature: Adding employees to HRMS application
         |Igor     |Igorevich |Igorev  |
         |Roman    |Romanovich|Romanov |
 
-  @daria
+@screenshot
   Scenario: Add employee using data table
       When user provides multiple employee data and verify they are added
         |firstName|middleName|lastName|
         |Ivan     |Ivanovich |Ivanov  |
         |Igor     |Igorevich |Igorev  |
         |Roman    |Romanovich|Romanov |
+
+  @daria
+    Scenario: Adding multiple employees from excel file
+      When user adds multiple employees from excel file using "EmployeeData" sheet and verify they are added

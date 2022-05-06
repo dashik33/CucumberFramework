@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
         monochrome = true,
 
         //executing scenarios with the tags provided, we can add multiple tags, like @sprint1,2,3. we use OR/AND between tags
-        tags = "@dashboard"
+        tags = "@screenshot"
 )
 
 public class RunnerClass {

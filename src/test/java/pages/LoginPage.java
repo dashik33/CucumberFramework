@@ -16,7 +16,13 @@ public class LoginPage extends CommonMethods {
     public WebElement loginBtn;
 
     @FindBy(xpath="//span[text()='Invalid credentials']")
-    public WebElement errMsg;
+    public WebElement invalidCredentialsErrMsg;
+
+    @FindBy(css="span#spanMessage")
+    public WebElement userNameCantBeEmptyErrMessage;
+
+    @FindBy(css="span#spanMessage")
+    public WebElement passwordCantBeEmptyErrMsg;
 
     public LoginPage() {
         PageFactory.initElements(driver, this);

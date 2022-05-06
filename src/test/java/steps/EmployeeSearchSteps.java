@@ -9,6 +9,7 @@ import utils.ConfigReader;
 public class EmployeeSearchSteps extends CommonMethods {
     @Given("user is navigated to HRMS application")
     public void user_is_navigated_to_hrms_application() {
+        //openBrowserAndLaunchApplication(); defined in Hooks, no need to repeat
     }
 
     @When("user enters valid admin credentials")

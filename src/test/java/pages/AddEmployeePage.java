@@ -23,6 +23,25 @@ public class AddEmployeePage  extends CommonMethods {
     @FindBy (xpath="//div[@id='profile-pic']/h1")
     public WebElement addedEmployeeVerification;
 
+    @FindBy (id="employeeId")
+    public WebElement employeeID;
+
+    @FindBy (id="photofile")
+    public WebElement uploadPhoto;
+
+    @FindBy (id="chkLogin")
+    public WebElement checkbox;
+
+    @FindBy (id="user_name")
+    public WebElement createUsername;
+
+    @FindBy (id="user_password")
+    public WebElement createPassword;
+
+    @FindBy (id="re_password")
+    public WebElement confirmPassword;
+
+
     public AddEmployeePage(){
         PageFactory.initElements(driver, this);
     }

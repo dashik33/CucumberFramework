@@ -23,17 +23,38 @@ public class LoginSteps extends CommonMethods {
             Assert.assertTrue(dashboard.welcomeMessage.isDisplayed());
         }
 
-        @When("user enters valid invalid credentials")
+        @When("user enters invalid credentials")
         public void user_enters_valid_invalid_credentials() {
             sendText(login.usernameBox, "tts12345678");
             sendText(login.passwordBox, "Hum@nhrm");
         }
 
-        @Then("user sees an error message")
+        @Then("user sees Invalid credentials error message")
         public void user_sees_an_error_message() {
-            System.out.println(errMessage(login.errMsg));
-            getMsgText(login.errMsg);
-
+            Assert.assertTrue(login.invalidCredentialsErrMsg.isDisplayed());
         }
+
+    @When("user enters password and leave username field empty")
+    public void user_enters_password_and_leave_username_field_empty() {
+        sendText(login.usernameBox, "");
+        sendText(login.passwordBox, "Hum@nhrm");
+    }
+
+    @Then("user sees Username cannot be empty error message")
+    public void user_sees_username_cannot_be_empty_error_message() {
+        Assert.assertTrue(login.userNameCantBeEmptyErrMessage.isDisplayed());
+    }
+
+
+    @When("user enters username and leave password field empty")
+    public void user_enters_username_and_leave_password_field_empty() {
+        sendText(login.usernameBox, "Admin");
+        sendText(login.passwordBox, "");
+    }
+
+    @Then("user sees Password cannot be empty error message")
+    public void user_sees_password_cannot_be_empty_error_message() {
+       Assert.assertTrue(login.passwordCantBeEmptyErrMsg.isDisplayed());
+    }
     }
 

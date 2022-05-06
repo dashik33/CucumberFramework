@@ -3,9 +3,14 @@ package steps;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.CommonMethods;
+import utils.Constants;
+import utils.ExcelReader;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +76,55 @@ public class AddEmployeeSteps extends CommonMethods {
         }
     }
 
+    @When("user adds multiple employees from excel file using {string} sheet and verify they are added")
+    public void user_adds_multiple_employees_from_excel_file_using_sheet_and_verify_they_are_added(String sheetName) throws InterruptedException {
+       List<Map<String,String>> employeeNames=ExcelReader.excelIntoMap(Constants.TESTDATA_FILEPATH, sheetName);
 
+        Iterator<Map<String,String>> itr=employeeNames.iterator();
+        while(itr.hasNext()){
+            //it returns a key and value for an employee
+            Map<String,String> mapNewEmp=itr.next();
 
+            //filling all the fields with data coming from excel file
+            sendText(addEmployee.firstname, mapNewEmp.get("FirstName"));
+            sendText(addEmployee.middlename, mapNewEmp.get("MiddleName"));
+            sendText(addEmployee.lastname, mapNewEmp.get("LastName"));
 
+            //it will fetch the employee id from attribute
+            String empIDValue=addEmployee.employeeID.getAttribute("value");
+
+            //uploading the photo
+            sendText(addEmployee.uploadPhoto, mapNewEmp.get("Photograph"));
+
+            //clicking on a checkbox
+            if (!addEmployee.checkbox.isSelected()){
+                click(addEmployee.checkbox);
+            }
+
+            //filling up other fields
+            sendText(addEmployee.createUsername, mapNewEmp.get("Username"));
+            sendText(addEmployee.createPassword, mapNewEmp.get("Password"));
+            sendText(addEmployee.confirmPassword, mapNewEmp.get("Password"));
+
+            click(addEmployee.saveBtn);
+
+            Thread.sleep(3000);
+
+            //verifying the employee
+            click(employeeSearch.empListOption);
+            sendText(employeeSearch.searchID, empIDValue);
+            click(employeeSearch.searchBtn);
+
+            //it returns the data from a row
+            List<WebElement> rowData=driver.findElements(By.xpath("//table[@id='resultTable']/tbody/tr"));
+            for (int i=0; i<rowData.size(); i++){
+                String rowText=rowData.get(i).getText();
+                //verifying that employee is added
+                String expectedData=empIDValue+" "+mapNewEmp.get("FirstName")+" "+mapNewEmp.get("MiddleName")+" "+mapNewEmp.get("LastName");
+                Assert.assertEquals(expectedData, rowText);
+            }
+            click(employeeSearch.addEmployeeOption);
+
+        }
+    }
 }
