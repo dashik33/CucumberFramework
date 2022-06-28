@@ -23,7 +23,12 @@ import org.junit.runner.RunWith;
         monochrome = true,
 
         //executing scenarios with the tags provided, we can add multiple tags, like @sprint1,2,3. we use OR/AND between tags
-        tags = "@screenshot"
+        tags = "@datatable",
+
+        //getting the reports of tests executions. all reports are generated in target folder
+        plugin ={"html:target/cucumber.html", "pretty", "json:target/cucumber.json", "rerun:target/failed.txt"
+
+        }
 )
 
 public class RunnerClass {

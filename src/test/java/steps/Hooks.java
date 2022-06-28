@@ -23,6 +23,7 @@ public class Hooks extends CommonMethods {
 
         //attaching the pic to the report
         scenario.attach(pic, "image/png", scenario.getName());
+
         tearDown();
     }
 

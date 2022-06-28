@@ -17,7 +17,10 @@ Feature: Adding employees to HRMS application
       And user clicks on save button
       Then the new employee is successfully added
 
+
   Scenario Outline: Adding multiple employees
+    #in scenario outline browser opens and closes as many times as number of data we provided. it works like a new
+      # scenario for each data set
         And user provides "<firstName>", "<middleName>" and "<lastName>"
         And user clicks on save button
         Then the new employee is successfully added
@@ -27,8 +30,9 @@ Feature: Adding employees to HRMS application
         |Igor     |Igorevich |Igorev  |
         |Roman    |Romanovich|Romanov |
 
-@screenshot
+  @datatable
   Scenario: Add employee using data table
+    # in datatable browser opens and closes only once. it works like one scenario
       When user provides multiple employee data and verify they are added
         |firstName|middleName|lastName|
         |Ivan     |Ivanovich |Ivanov  |
@@ -38,3 +42,11 @@ Feature: Adding employees to HRMS application
   @daria
     Scenario: Adding multiple employees from excel file
       When user adds multiple employees from excel file using "EmployeeData" sheet and verify they are added
+
+    @testingthis
+  Scenario: Adding one employee using cucumber feature file
+    And user enters "Wick", "John" and "A."
+    And user grabs the employee ID
+    And user clicks on save button
+    And user query the database for the same employee ID
+    Then user verifies the results

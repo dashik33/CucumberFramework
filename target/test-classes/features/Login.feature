@@ -2,6 +2,7 @@ Feature: Validation of login scenarios
 
   Background: #executes before every scenario
 
+  @latest
   Scenario: Admin login
     When user enters valid admin credentials
     And user clicks on login button
@@ -18,13 +19,12 @@ Feature: Validation of login scenarios
     And user clicks on login button
     Then user sees Invalid credentials error message
 
-      @test
   Scenario: Empty username field
     When user enters password and leave username field empty
     And user clicks on login button
     Then user sees Username cannot be empty error message
 
-        @test
+
   Scenario: Empty password field
     When user enters username and leave password field empty
     And user clicks on login button

@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class CommonMethods extends PageInitializers {
@@ -138,7 +139,11 @@ public class CommonMethods extends PageInitializers {
      * @param element
      */
     public static void switchToFrame(WebElement element) {
-        driver.switchTo().frame(element);
+        try{
+            driver.switchTo().frame(element);
+        }catch (NoSuchFrameException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -147,8 +152,12 @@ public class CommonMethods extends PageInitializers {
      * @param index
      */
     public static void switchToFrame(int index) {
+        try{
         driver.switchTo().frame(index);
-    }
+        }catch (NoSuchFrameException e) {
+            e.printStackTrace();
+        }
+        }
 
     /**
      * this method will switch to frame by name/ID
@@ -156,9 +165,12 @@ public class CommonMethods extends PageInitializers {
      * @param nameOrId
      */
     public static void switchToFrame(String nameOrId) {
-        driver.switchTo().frame(nameOrId);
+        try {
+            driver.switchTo().frame(nameOrId);
+        } catch (NoSuchFrameException e) {
+            e.printStackTrace();
+        }
     }
-
     /**
      * this method will select dropdowns' options by visible text
      *
@@ -167,7 +179,13 @@ public class CommonMethods extends PageInitializers {
      */
     public static void selectDD(WebElement element, String textToSelect) {
         Select select = new Select(element);
-        select.selectByVisibleText(textToSelect);
+        List<WebElement> options = select.getOptions();
+        for (WebElement option : options) {
+            if (option.getText().equals(textToSelect)) {
+                select.selectByVisibleText(textToSelect);
+                break;
+            }
+        }
     }
 
     /**
@@ -178,7 +196,11 @@ public class CommonMethods extends PageInitializers {
      */
     public static void selectDD(WebElement element, int index) {
         Select select = new Select(element);
-        select.selectByIndex(index);
+        int optionsSize=select.getOptions().size();
+        if (optionsSize>index){
+            select.selectByIndex(index);
+        }
+
     }
 
     public static byte[] takeScreenShot(String fileName) {
