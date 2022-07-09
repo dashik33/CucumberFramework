@@ -1,6 +1,5 @@
 Feature: Dashboard tabs verification functionality
 
-  @dashboard
   Scenario: Verify dashboard tabs
     When user enters valid admin credentials
     And user clicks on login button

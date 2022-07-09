@@ -56,7 +56,7 @@ public class APIPracticeSteps {
         JsonObject randomJsonObject=allVotes.get(randomIndex).getAsJsonObject();
         int randomVoteID= randomJsonObject.get("id").getAsInt();
         response=request.given().when().get(BASE_URI+"/votes/"+randomVoteID);
-        response.prettyPrint();
+       // response.prettyPrint();
     }
 
     @Then("the status code is {int} and response is not empty")

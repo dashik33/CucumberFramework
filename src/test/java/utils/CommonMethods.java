@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -29,8 +30,12 @@ public class CommonMethods extends PageInitializers {
         ConfigReader.readProperties(Constants.CONFIGURATION_FILEPATH);
         switch (ConfigReader.getPropertyValue("browser")) {
             case "chrome":
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.setHeadless(true);
                 WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
+                driver = new ChromeDriver(chromeOptions);
+                //WebDriverManager.chromedriver().setup();
+               // driver = new ChromeDriver();
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
@@ -139,9 +144,9 @@ public class CommonMethods extends PageInitializers {
      * @param element
      */
     public static void switchToFrame(WebElement element) {
-        try{
+        try {
             driver.switchTo().frame(element);
-        }catch (NoSuchFrameException e) {
+        } catch (NoSuchFrameException e) {
             e.printStackTrace();
         }
     }
@@ -152,12 +157,12 @@ public class CommonMethods extends PageInitializers {
      * @param index
      */
     public static void switchToFrame(int index) {
-        try{
-        driver.switchTo().frame(index);
-        }catch (NoSuchFrameException e) {
+        try {
+            driver.switchTo().frame(index);
+        } catch (NoSuchFrameException e) {
             e.printStackTrace();
         }
-        }
+    }
 
     /**
      * this method will switch to frame by name/ID
@@ -171,6 +176,7 @@ public class CommonMethods extends PageInitializers {
             e.printStackTrace();
         }
     }
+
     /**
      * this method will select dropdowns' options by visible text
      *
@@ -196,8 +202,8 @@ public class CommonMethods extends PageInitializers {
      */
     public static void selectDD(WebElement element, int index) {
         Select select = new Select(element);
-        int optionsSize=select.getOptions().size();
-        if (optionsSize>index){
+        int optionsSize = select.getOptions().size();
+        if (optionsSize > index) {
             select.selectByIndex(index);
         }
 
@@ -209,17 +215,17 @@ public class CommonMethods extends PageInitializers {
         File scrFile = obj.getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(scrFile, new File(Constants.SCREENSHOT_FILEPATH +
-                    fileName+" "+getTimeStamp("yyyy-MM-dd-HH-mm-ss")+" .png"));
+                    fileName + " " + getTimeStamp("yyyy-MM-dd-HH-mm-ss") + " .png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return picBytes;
     }
 
-    public static String getTimeStamp(String pattern){
-        Date date=new Date();
+    public static String getTimeStamp(String pattern) {
+        Date date = new Date();
         //formatting the date according to our choice
-        SimpleDateFormat sdf=new SimpleDateFormat(pattern);
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         return sdf.format(date);
 
     }
