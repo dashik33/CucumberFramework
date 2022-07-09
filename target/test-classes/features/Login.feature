@@ -2,7 +2,7 @@ Feature: Validation of login scenarios
 
   Background: #executes before every scenario
 
-  @latest
+  @smoke
   Scenario: Admin login
     When user enters valid admin credentials
     And user clicks on login button
@@ -13,7 +13,6 @@ Feature: Validation of login scenarios
     And user clicks on login button
     Then ESS user is successfully logged in
 
-    @test
   Scenario: Invalid login
     When user enters invalid credentials
     And user clicks on login button
