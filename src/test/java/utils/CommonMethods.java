@@ -30,12 +30,12 @@ public class CommonMethods extends PageInitializers {
         ConfigReader.readProperties(Constants.CONFIGURATION_FILEPATH);
         switch (ConfigReader.getPropertyValue("browser")) {
             case "chrome":
-              //  ChromeOptions chromeOptions = new ChromeOptions();
-                //chromeOptions.setHeadless(true);
-                //WebDriverManager.chromedriver().setup();
-                //driver = new ChromeDriver(chromeOptions);
+              ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.setHeadless(true);
                 WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
+                driver = new ChromeDriver(chromeOptions);
+               // WebDriverManager.chromedriver().setup();
+               // driver = new ChromeDriver();
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
